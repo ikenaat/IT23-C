@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>LONGLONG VENTURES</title>
+    <style>
+        .navbar {
+            background-color: #FDBE33 !important;
+        }
+
+        /* Set fixed dimensions for carousel images */
+        .carousel-item img {
+            width: 960px;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        /* Ensure all card images are the same size */
+        .fixed-image {
+            height: 200px;
+            /* Adjust the height as needed */
+            object-fit: cover;
+            /* Ensures the image fits while maintaining aspect ratio */
+        }
+
+        /* Optional: Ensure all cards are the same height */
+        .card {
+            height: 100%;
+            /* Cards will match each other's height */
+        }
+
+        .card.hover-effect:hover {
+            transform: scale(1.05);
+            /* Slight zoom effect */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            /* Add shadow on hover */
+        }
+
+        /* Match the size of the Google Map iframe to the Contact Us card */
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Ensure the map and card have the same height */
+        .map-container,
+        .contact-card {
+            height: 400px;
+        }
+
+        :root {
+            --lightbox: rgb(0 0 0 / 0.75);
+            --carousel-text: #fff;
+        }
+
+        body {
+            margin: 1.5rem 0 3.5rem;
+        }
+
+        @keyframes zoomin {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* .gallery-item {
+            display: block;
+        } */
+
+
+        /* .gallery-item img {
+            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.2s;
+        } */
+
+        .gallery-item {
+            display: block;
+            height: 100%;
+            /* Ensure the item takes up the full available space */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            /* Make sure the image takes up the full width of the container */
+            height: 200px;
+            /* Set a fixed height for the images */
+            object-fit: cover;
+            /* This ensures the image covers the space without distortion */
+            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.2s;
+        }
+
+        .gallery-item img {
+            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.2s;
+        }
+
+        .gallery-item:hover img {
+            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.35);
+        }
+
+        /* .gallery-item:hover img {
+            box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.35);
+        } */
+
+        .lightbox-modal .modal-content {
+            background-color: var(--lightbox);
+        }
+
+        .lightbox-modal .btn-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            font-size: 1.25rem;
+            z-index: 10;
+            filter: invert(1) grayscale(100);
+        }
+
+        .lightbox-modal .modal-body {
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+
+        .lightbox-modal .lightbox-content {
+            width: 100%;
+        }
+
+        .lightbox-modal .carousel-indicators {
+            margin-bottom: 0;
+        }
+
+        .lightbox-modal .carousel-indicators [data-bs-target] {
+            background-color: var(--carousel-text) !important;
+        }
+
+        .lightbox-modal .carousel-inner {
+            width: 75%;
+        }
+
+        .lightbox-modal .carousel-inner img {
+            animation: zoomin 10s linear infinite;
+        }
+
+        .lightbox-modal .carousel-item .carousel-caption {
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding-bottom: 2rem;
+            background-color: var(--lightbox);
+            color: var(--carousel-text) !important;
+        }
+
+        .lightbox-modal .carousel-control-prev,
+        .lightbox-modal .carousel-control-next {
+            width: auto;
+        }
+
+        .lightbox-modal .carousel-control-prev {
+            left: 1.25rem;
+        }
+
+        .lightbox-modal .carousel-control-next {
+            right: 1.25rem;
+        }
+
+        @media (min-width: 1400px) {
+            .lightbox-modal .carousel-inner {
+                max-width: 60%;
+            }
+        }
+
+        [data-bs-theme="dark"] .lightbox-modal .carousel-control-next-icon,
+        [data-bs-theme="dark"] .lightbox-modal .carousel-control-prev-icon {
+            filter: none;
+        }
+
+        .btn-fullscreen-enlarge,
+        .btn-fullscreen-exit {
+            position: absolute;
+            top: 1.25rem;
+            right: 3.5rem;
+            z-index: 10;
+            border: 0;
+            background: transparent;
+            opacity: 0.6;
+            font-size: 1.25rem;
+        }
+
+        .bi {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.035em;
+            fill: currentcolor;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bukidnon Tours</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bukidnon Tours</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Mangima</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contactUs">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="images/mangima/mangima.jpg" style="width: 100%;" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-12">
+                <h1>Mangima Spring Resort</h1>
+                <p>Mangima Resort and Bike Park, nestled in the lush landscapes of Bukidnon, Philippines, is a haven for adventure seekers and nature lovers alike. Surrounded by rolling hills and verdant greenery, the resort offers a tranquil escape with modern amenities and an array of recreational activities.  
+
+                    The resort is best known for its world-class bike park, featuring well-designed trails that cater to riders of all skill levels, from beginners to seasoned enthusiasts. The tracks wind through scenic views, offering thrilling downhill runs, challenging technical sections, and opportunities to appreciate Bukidnon’s natural beauty.  
+                    
+                    In addition to biking, Mangima Resort boasts a serene ambiance perfect for relaxation. Guests can unwind in comfortable accommodations, take a dip in the resort's refreshing pools, or savor local and international dishes at its restaurant. The resort's strategic location also makes it an ideal base for exploring nearby attractions in Bukidnon.  
+                    
+                    Whether you’re up for an adrenaline-filled biking adventure or a peaceful retreat, Mangima Resort and Bike Park provides the perfect blend of excitement and serenity.</p>
+            </div>
+            <div class="col-md-12">
+                <svg class="d-none" xmlns="http://www.w3.org/2000/svg">
+                    <symbol id="enlarge" viewBox="0 0 16 16">
+                        <path
+                            d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z" />
+                    </symbol>
+                    <symbol id="exit" viewBox="0 0 16 16">
+                        <path
+                            d="M5.5 0a.5.5 0 0 1 .5.5v4A1.5 1.5 0 0 1 4.5 6h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5zm5 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 10 4.5v-4a.5.5 0 0 1 .5-.5zM0 10.5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 6 11.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zm10 1a1.5 1.5 0 0 1 1.5-1.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4z" />
+                    </symbol>
+                </svg>
+
+                <h1 class="text-center mb-0">Gallery</h1>
+
+                <section class="photo-gallery">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 gallery-grid">
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima/ma-1.jpg">
+                                    <img src="images/mangima/ma-1.jpg" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-2.jpg">
+                                    <img src="images/mangima//ma-2.jpg" class="img-flu  id">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-3.png">
+                                    <img src="images/mangima//ma-3.png" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-4.png">
+                                    <img src="images/mangima//ma-4.png" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-5.png">
+                                    <img src="images/mangima//ma-5.png" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-6.png">
+                                    <img src="images/mangima//ma-6.png" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-7.png">
+                                    <img src="images/mangima//ma-7.png" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-8.png">
+                                    <img src="images/mangima//ma-8.png" class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a class="gallery-item" href="images/mangima//ma-9.png">
+                                    <img src="images/mangima//ma-9.png" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="modal fade lightbox-modal" id="lightbox-modal" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+                        <div class="modal-content">
+                            <button type="button" class="btn-fullscreen-enlarge" aria-label="Enlarge fullscreen">
+                                <svg class="bi">
+                                    <use href="#enlarge"></use>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn-fullscreen-exit d-none" aria-label="Exit fullscreen">
+                                <svg class="bi">
+                                    <use href="#exit"></use>
+                                </svg>
+                            </button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div class="modal-body">
+                                <div class="lightbox-content">
+                                    <!-- JS content here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map and Contact Us -->
+    <div class="container mt-5 mb-5" id="contactUs">
+        <div class="row">
+            <div class="col-md-6 map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3294.528496440262!2d124.87768647406043!3d8.375416498879066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32ffbe0b71999e7f%3A0x871a69dd555e6c9f!2sMangima%20Spring%20Resort%20and%20Bike%20Park!5e1!3m2!1sen!2sph!4v1733572778314!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="col-md-6 contact-card">
+                <div class="card">
+                    <div class="card-header">
+                        Contact Us
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="">Your Name</label>
+                                    <input type="text" placeholder="Name" class="form-control" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="">Your Email</label>
+                                    <input type="Email" placeholder="Email" class="form-control" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="">Your Message</label>
+                                    <textarea name="message" class="form-control" placeholder="Your Message"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <button class="btn btn-success float-end mt-3" type="submit">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const html = document.querySelector("html");
+        html.setAttribute("data-bs-theme", "dark");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Create LightBox
+            const galleryGrid = document.querySelector(".gallery-grid");
+            const links = galleryGrid.querySelectorAll("a");
+            const imgs = galleryGrid.querySelectorAll("img");
+            const lightboxModal = document.getElementById("lightbox-modal");
+            const bsModal = new bootstrap.Modal(lightboxModal);
+            const modalBody = lightboxModal.querySelector(".lightbox-content");
+
+            function createCaption(caption) {
+                return `<div class="carousel-caption d-none d-md-block">
+        <h4 class="m-0">${caption}</h4>
+      </div>`;
+            }
+
+            function createIndicators(img) {
+                let markup = "",
+                    i,
+                    len;
+
+                const countSlides = links.length;
+                const parentCol = img.closest(".col");
+                const curIndex = [...parentCol.parentElement.children].indexOf(parentCol);
+
+                for (i = 0, len = countSlides; i < len; i++) {
+                    markup += `
+        <button type="button" data-bs-target="#lightboxCarousel"
+          data-bs-slide-to="${i}"
+          ${i === curIndex ? 'class="active" aria-current="true"' : ""}
+          aria-label="Slide ${i + 1}">
+        </button>`;
+                }
+
+                return markup;
+            }
+
+            function createSlides(img) {
+                let markup = "";
+                const currentImgSrc = img.closest(".gallery-item").getAttribute("href");
+
+                for (const img of imgs) {
+                    const imgSrc = img.closest(".gallery-item").getAttribute("href");
+                    const imgAlt = img.getAttribute("alt");
+
+                    markup += `
+        <div class="carousel-item${currentImgSrc === imgSrc ? " active" : ""}">
+          <img class="d-block img-fluid w-100" src=${imgSrc} alt="${imgAlt}">
+          ${imgAlt ? createCaption(imgAlt) : ""}
+        </div>`;
+                }
+
+                return markup;
+            }
+
+            function createCarousel(img) {
+                const markup = `
+      <!-- Lightbox Carousel -->
+      <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="true">
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+          ${createIndicators(img)}
+        </div>
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner justify-content-center mx-auto">
+          ${createSlides(img)}
+        </div>
+        <!-- Controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      `;
+
+                modalBody.innerHTML = markup;
+            }
+
+            for (const link of links) {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const currentImg = link.querySelector("img");
+                    const lightboxCarousel = document.getElementById("lightboxCarousel");
+
+                    if (lightboxCarousel) {
+                        const parentCol = link.closest(".col");
+                        const index = [...parentCol.parentElement.children].indexOf(parentCol);
+
+                        const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
+                        bsCarousel.to(index);
+                    } else {
+                        createCarousel(currentImg);
+                    }
+
+                    bsModal.show();
+                });
+            }
+
+            // --- Support Fullscreen
+            const fsEnlarge = document.querySelector(".btn-fullscreen-enlarge");
+            const fsExit = document.querySelector(".btn-fullscreen-exit");
+
+            function enterFS() {
+                lightboxModal
+                    .requestFullscreen()
+                    .then({})
+                    .catch((err) => {
+                        alert(
+                            `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+                        );
+                    });
+                fsEnlarge.classList.toggle("d-none");
+                fsExit.classList.toggle("d-none");
+            }
+
+            function exitFS() {
+                document.exitFullscreen();
+                fsExit.classList.toggle("d-none");
+                fsEnlarge.classList.toggle("d-none");
+            }
+
+            fsEnlarge.addEventListener("click", (e) => {
+                e.preventDefault();
+                enterFS();
+            });
+
+            fsExit.addEventListener("click", (e) => {
+                e.preventDefault();
+                exitFS();
+            });
+        });
+
+    </script>
+</body>
+
+</html>
